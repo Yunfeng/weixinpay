@@ -260,7 +260,7 @@ public class WxpServiceImpl implements WxpService {
 
         WxpData wxpData = new WxpData();
 
-        //wxpData.setDevice_info("WEB");
+        wxpData.setMap("device_info", "sandbox");
         wxpData.setMap("body", "test");
         wxpData.setMap("attach", "test");
         wxpData.setMap("goods_tag", "test");
@@ -311,26 +311,29 @@ public class WxpServiceImpl implements WxpService {
             if (res.getReturn_code().equalsIgnoreCase("SUCCESS")) {
                 result.setMap("appId", appId);
 
-                final String timeStamp = DateUtil.getCurDateTime().getTime() / 1000 + "";
+                final String timeStamp = " " + DateUtil.getCurDateTime().getTime() / 1000;
                 result.setMap("timeStamp", timeStamp);
 
                 final String nonceStr = RandomStringGenerator.getRandomStringByLength(32);
                 result.setMap("nonceStr", nonceStr);
 
-                result.setMap("package", "prepay_id=" + res.getPrepay_id());
+                final String packageA = "prepay_id=" + res.getPrepay_id();
+                result.setMap("package", packageA);
+
+                final String signType = "MD5";
                 result.setMap("signType", "MD5");
 
                 final String sign1 = result.makeSign(this.sandboxKey); //使用微信支付密码 签名
                 result.setMap("paySign", sign1);
 
                 logger.info("JsApi paras:");
-                //logger.info(result.toXml());
+                logger.info(result.toXml());
 
                 params.setAppId(appId);
                 params.setTimeStamp(timeStamp);
                 params.setNonceStr(nonceStr);
-                params.setPackageA("prepay_id=" + res.getPrepay_id());
-                params.setSignType("MD5");
+                params.setPackageA(packageA);
+                params.setSignType(signType);
                 params.setPaySign(sign1);
             }
         } catch (IOException e) {

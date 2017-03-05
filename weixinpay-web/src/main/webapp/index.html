@@ -22,8 +22,9 @@
             </form>
         </div>
         <div class="card-footer">
-            <button type="button" class="btn  btn-success" @click.stop="weixinPay0()">微信支付</button>
-            <button type="button" class="btn  btn-success" @click.stop="weixinPay1()">微信支付(js-sdk)</button>
+            <button type="button" class="btn  btn-primary" @click.stop="weixinPay0()">微信支付</button>
+            <button type="button" class="btn  btn-info" @click.stop="weixinPay1()">微信支付(js-sdk)</button>
+            <button type="button" class="btn  btn-success" @click.stop="weixinPay2()">微信支付(jsp)</button>
 
             <button type="button" class="btn  btn-success invisible" @click.stop="testUrl()">test</button>
         </div>
@@ -47,6 +48,10 @@
             },
             weixinPay1: function() {
                 this.redirectUrl = 'http://wxp.90sky.com/wxp/test/wxp-js-sdk.html'
+                this.weixinPay()
+            },
+            weixinPay2: function() {
+                this.redirectUrl = 'http://wxp.90sky.com/wxp/test/wxp-jsp'
                 this.weixinPay()
             },
             weixinPay: function() {

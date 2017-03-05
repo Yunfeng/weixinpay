@@ -44,6 +44,8 @@
     }
 
     function jsApiCall (params) {
+        alert(JSON.stringify(params))
+
         appendConsole('jsApiCall')
         appendConsole('appId: ' + params.appId)
         appendConsole('timeStamp: ' + params.timeStamp)
@@ -52,19 +54,14 @@
         appendConsole('paySign: ' + params.paySign)
         appendConsole('signType: ' + params.signType)
 
-        var jsParams = {
-            "appId": '"' + params.appId + '"',
-            "timeStamp": '"' + params.timeStamp + '"',
-            "nonceStr": '"' + params.nonceStr + '"',
-            "package": '"' + params.packageA + '"',
-            "signType": '"'  + params.signType + '"',
-            "paySign": '"' + params.paySign + '"'
-        }
-
-        appendConsole(jsParams);
-
-        WeixinJSBridge.invoke ('getBrandWCPayRequest',
-            jsParams,
+        WeixinJSBridge.invoke ('getBrandWCPayRequest', {
+                "appId":  params.appId,
+                "timeStamp": params.timeStamp ,
+                "nonceStr": params.nonceStr,
+                "package": params.packageA,
+                "signType": "MD5",
+                "paySign": params.paySign
+            },
             function (res) {
                 appendConsole(res)
                 console.log(res)

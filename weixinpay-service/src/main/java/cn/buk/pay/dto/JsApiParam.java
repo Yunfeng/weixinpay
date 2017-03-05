@@ -11,6 +11,20 @@ public class JsApiParam {
     private String signType;
     private String paySign;
 
+    public String toJson() {
+        String json = "{";
+
+        json += "\"appId\": " + "\"" + appId + "\",";
+        json += "\"timeStamp\": " + "\"" + timeStamp + "\",";
+        json += "\"nonceStr\": " + "\"" + nonceStr + "\",";
+        json += "\"package\": " + "\"" + packageA + "\",";
+        json += "\"signType\": " + "\"" + signType + "\",";
+        json += "\"paySign\": " + "\"" + paySign + "\"";
+
+        json += "}";
+        return json;
+    }
+
     public void setAppId(String appId) {
         this.appId = appId;
     }
