@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>Weixin Pay demo</title>
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" />
+<body>
+
+    <div class="card" id="app">
+        <div class="card-header text-center">
+            充值
+        </div>
+        <div class="card-block">
+            <form>
+                <div class="form-group">
+                    <input type="input" class="form-control" placeholder="金额，单位：分"  v-model="total">
+                    <p class="form-text text-muted">
+                        金额
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn  btn-success" @click.stop="weixinPay0()">微信支付</button>
+            <button type="button" class="btn  btn-success" @click.stop="weixinPay1()">微信支付(js-sdk)</button>
+
+            <button type="button" class="btn  btn-success invisible" @click.stop="testUrl()">test</button>
+        </div>
+    </div>
+
+<script src="http://cdn.staticfile.org/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/vue/2.1.6/vue.min.js"></script>
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            total: 101,
+            appId: '',
+            redirectUrl: ''
+        },
+        methods: {
+            weixinPay0: function() {
+                this.redirectUrl = 'http://wxp.90sky.com/wxp/test/wxp.html'
+                this.weixinPay()
+            },
+            weixinPay1: function() {
+                this.redirectUrl = 'http://wxp.90sky.com/wxp/test/wxp-js-sdk.html'
+                this.weixinPay()
+            },
+            weixinPay: function() {
+                var self = this
+                // get weixin appid
+                $.ajax({
+                    type: 'post',
+                    url: '/wxp/appId',
+                    dataType: 'text',
+                    success: function (val) {
+                        console.log(val)
+                        self.appId = val
+                        var url0 = encodeURIComponent(self.redirectUrl)
+                        console.log(url0)
+
+                        var url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + self.appId +
+                            '&redirect_uri=' + url0 +
+                            '&response_type=code&scope=snsapi_base&state=aaabbbccc#wechat_redirect'
+                        window.location.href = url
+                    }
+                })
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

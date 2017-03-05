@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>Weixin Pay demo</title>
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" />
+<body ontouchstart >
+
+<p>weixin pay demo</p>
+
+<div id="myConsole"></div>
+
+
+<script src="http://cdn.staticfile.org/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/vue/2.1.6/vue.min.js"></script>
+
+<script type="text/javascript">
+    var openid = ''
+    var total = 101
+
+    function appendConsole (val) {
+        $('#myConsole').append(val).append('<br />')
+    }
+
+    function callWexinPay () {
+        appendConsole('call weixinPay')
+        $.ajax({
+            type: 'post',
+            url: '/wxp/generatePrepayOrder',
+            data: {
+                'id': '1',
+                'openid': openid,
+                'total_fee': total
+            },
+            dataType: 'json',
+            success: function (jsonResult) {
+                console.log(jsonResult)
+                if (jsonResult !== null) {
+                    jsApiCall(jsonResult)
+                }
+            }
+        })
+    }
+
+    function jsApiCall (params) {
+        appendConsole('jsApiCall')
+        appendConsole('appId: ' + params.appId)
+        appendConsole('timeStamp: ' + params.timeStamp)
+        appendConsole('nonceStr: ' + params.nonceStr)
+        appendConsole('package: ' + params.packageA)
+        appendConsole('paySign: ' + params.paySign)
+        appendConsole('signType: ' + params.signType)
+
+        var jsParams = {
+            "appId": '"' + params.appId + '"',
+            "timeStamp": '"' + params.timeStamp + '"',
+            "nonceStr": '"' + params.nonceStr + '"',
+            "package": '"' + params.packageA + '"',
+            "signType": '"'  + params.signType + '"',
+            "paySign": '"' + params.paySign + '"'
+        }
+
+        appendConsole(jsParams);
+
+        WeixinJSBridge.invoke ('getBrandWCPayRequest',
+            jsParams,
+            function (res) {
+                appendConsole(res)
+                console.log(res)
+                if(res.err_msg == "get_brand_wcpay_request：ok" ) {
+
+                }
+            }
+        )
+    }
+
+    function GetURLParameter(sParam)
+    {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++)
+        {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam)
+            {
+                return sParameterName[1];
+            }
+        }
+    }
+
+    $(function() {
+        var code = GetURLParameter('code')
+        var state = GetURLParameter('state')
+        appendConsole('code: ' + code)
+        appendConsole('state: ' + state)
+
+        //获取 open id
+        $.ajax({
+            type: 'post',
+            url: '/wxp/openId',
+            data: { 'code': code },
+            dataType: 'json',
+            success: function (jsonResult) {
+                openid = jsonResult.openid
+                appendConsole('openid: ' + openid)
+                callWexinPay()
+            },
+            complete: function () {
+                //self.loading = false
+            }
+        })
+    })
+
+</script>
+
+</html>
