@@ -247,14 +247,14 @@ public class WxpServiceImpl implements WxpService {
         WXPay.initSDKConfiguration(weixinpayKey, appId, mchId, "", certLocalPath, certPassword);
 
         // 沙箱密钥
-        try {
-            sandboxKey = getWeixinPaySandboxSignKey();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        if (this.sandboxKey == null) return null;
+//        try {
+//            sandboxKey = getWeixinPaySandboxSignKey();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//
+//        if (this.sandboxKey == null) return null;
 
         //WXPay.initSDKConfiguration(sandboxKey, appId, mchId, "", certLocalPath, certPassword);
 
@@ -285,7 +285,7 @@ public class WxpServiceImpl implements WxpService {
         wxpData.setMap("nonce_str", RandomStringGenerator.getRandomStringByLength(32));
 
 
-        String sign = wxpData.makeSign(this.sandboxKey);
+        String sign = wxpData.makeSign(this.getKey());
         wxpData.setMap("sign", sign);
 
 
@@ -311,7 +311,7 @@ public class WxpServiceImpl implements WxpService {
             if (res.getReturn_code().equalsIgnoreCase("SUCCESS")) {
                 result.setMap("appId", appId);
 
-                final String timeStamp = " " + DateUtil.getCurDateTime().getTime() / 1000;
+                final String timeStamp = "" + DateUtil.getCurDateTime().getTime() / 1000;
                 result.setMap("timeStamp", timeStamp);
 
                 final String nonceStr = RandomStringGenerator.getRandomStringByLength(32);
@@ -323,7 +323,7 @@ public class WxpServiceImpl implements WxpService {
                 final String signType = "MD5";
                 result.setMap("signType", "MD5");
 
-                final String sign1 = result.makeSign(this.sandboxKey); //使用微信支付密码 签名
+                final String sign1 = result.makeSign(this.getKey()); //使用微信支付密码 签名
                 result.setMap("paySign", sign1);
 
                 logger.info("JsApi paras:");

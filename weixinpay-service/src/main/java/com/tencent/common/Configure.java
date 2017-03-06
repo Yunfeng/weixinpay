@@ -7,10 +7,10 @@ package com.tencent.common;
  * 这里放置各种配置数据
  */
 public class Configure {
-	public static String UNIFIED_ORDER_API = "https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder";
+//	public static String UNIFIED_ORDER_API = "https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder";
 	public static String SANDBOX_SIGNKEY_API = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
 
-//	public static String UNIFIED_ORDER_API = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+	public static String UNIFIED_ORDER_API = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 //	public static String SANDBOX_SIGNKEY_API = "https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey";
 
 //这个就是自己要保管好的私有Key了（切记只能放在自己的后台代码里，不能放在任何可能被看到源代码的客户端程序中）

@@ -34,7 +34,6 @@ public class JspController {
         logger.info("remoteIp: " + ip);
         JsApiParam jsparam = wxpService.generatePrepayOrder(1, openid, 101, ip);
 
-//        String jsonParam = JSON.toJSONString(jsparam);
         String jsonParam = jsparam.toJson();
         logger.debug(jsonParam);
 
