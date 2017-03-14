@@ -49,7 +49,10 @@ public class MD5 {
         try {
             resultString = origin;
             MessageDigest md = MessageDigest.getInstance("MD5");
-            resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
+//            resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
+            //            resultString = byteArrayToHexString(md.digest(resultString.getBytes()));//原文件内容，可能原因是：win2003时系统缺省编码为GBK，win7为utf-8
+            resultString = byteArrayToHexString(md.digest(resultString.getBytes("utf-8")));//正确的写法
+
         } catch (Exception e) {
             e.printStackTrace();
         }
