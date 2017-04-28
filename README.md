@@ -2,15 +2,16 @@
 
   运行前，请将pom.xml中的以下参数填好，否则运行会出错。
   
-  <weixin.appid></weixin.appid>
-  <weixin.appsecret></weixin.appsecret>
-  <weixin.token></weixin.token>
+  <weixin.appid></weixin.appid><br/>
+  <weixin.appsecret></weixin.appsecret><br/>
+  <weixin.token></weixin.token><br/>
+<br/>
+  <weixinpay.mchId></weixinpay.mchId><br>
+  <weixinpay.key></weixinpay.key><br>
+  <weixinpay.cert.filename></weixinpay.cert.filename><br/>
+  <weixinpay.cert.password></weixinpay.cert.password><br/>
 
-  <weixinpay.mchId></weixinpay.mchId>
-  <weixinpay.key></weixinpay.key>
-  <weixinpay.cert.filename></weixinpay.cert.filename>
-  <weixinpay.cert.password></weixinpay.cert.password>
 
 
-QQ群：231155843
-QQ: 1410439635
+QQ群：231155843<b/r>
+QQ: 1410439635<br/>
