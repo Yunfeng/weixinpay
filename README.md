@@ -6,9 +6,13 @@
   <weixin.appsecret></weixin.appsecret><br/>
   <weixin.token></weixin.token><br/>
 <br/>
+商户ID
   <weixinpay.mchId></weixinpay.mchId><br>
+API密钥
   <weixinpay.key></weixinpay.key><br>
+证书
   <weixinpay.cert.filename></weixinpay.cert.filename><br/>
+证书密码
   <weixinpay.cert.password></weixinpay.cert.password><br/>
 
 
